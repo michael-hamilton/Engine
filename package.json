@@ -1,0 +1,25 @@
+{
+  "name": "engine",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "NODE_ENV=development concurrently \"parcel ./engine.html\" \"wait-on http://localhost:1234 && electron app.js\""
+  },
+  "author": "",
+  "license": "MIT",
+  "build": {
+    "appId": "engine",
+    "files": [
+      "dist/**/*"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^6.0.11"
+  },
+  "dependencies": {
+    "concurrently": "^4.1.2",
+    "parcel-bundler": "^1.12.3",
+    "wait-on": "^3.3.0"
+  }
+}
