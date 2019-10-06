@@ -1,5 +1,4 @@
 const { app, BrowserWindow } = require('electron');
-const { join } = require('path');
 
 function createWindow () {
     let win = new BrowserWindow({
