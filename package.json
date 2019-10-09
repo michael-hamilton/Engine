@@ -11,7 +11,8 @@
   "build": {
     "appId": "engine",
     "files": [
-      "dist/**/*"
+      "dist/**/*",
+      "assets/"
     ]
   },
   "devDependencies": {
