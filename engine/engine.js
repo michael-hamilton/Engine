@@ -3,7 +3,14 @@ class engine {
         this.c = canvas;
         this.ctx = this.c.getContext("2d");
         this.controls = {};
-        this.player = {x:10, y:10};
+        this.player = {
+            x:10,
+            y:10,
+            velocity: {
+                x: 0,
+                y: 0,
+            },
+        };
         this.level = [
             [0,1,2,3,4,5,6,7,8,9,10,11,0,0,0,0,0,0,0,0,0,0,1,2],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2],
@@ -34,6 +41,7 @@ class engine {
         this.ctx.scale(2,2);
 
         window.addEventListener('keydown',e => {
+            e.preventDefault();
             if(this.controls[e.key])
                 this.controls[e.key]();
         });
@@ -59,6 +67,10 @@ class engine {
 
         this.ctx.globalCompositeOperation = 'destination-over';
 
+        if(this.player.velocity.x !== 0 || this.player.velocity.y !== 0) {
+            this.setPlayerPos(this.player.x + this.player.velocity.x, this.player.y + this.player.velocity.y);
+        }
+
         this.ctx.drawImage(img, 192, 0, spriteSize, spriteSize, this.player.x, this.player.y, spriteSize, spriteSize);
 
         window.requestAnimationFrame(this.draw);
@@ -68,6 +80,13 @@ class engine {
         this.player.x = x;
         this.player.y = y;
         this.draw();
+    }
+
+    setPlayerVelocity(x, y) {
+        this.player.velocity = {
+            x,
+            y
+        };
     }
 
     setPressedKeys(e) {
@@ -80,8 +99,8 @@ class engine {
 }
 
 const e = new engine(document.getElementById("display"));
-e.bindControl("ArrowUp", () => e.setPlayerPos(e.player.x, e.player.y-2));
-e.bindControl("ArrowDown", () => e.setPlayerPos(e.player.x, e.player.y+2));
-e.bindControl("ArrowLeft", () => e.setPlayerPos(e.player.x-2, e.player.y));
-e.bindControl("ArrowRight", () => e.setPlayerPos(e.player.x+2, e.player.y));
+e.bindControl("ArrowUp", () => e.setPlayerVelocity(0, 2));
+e.bindControl("ArrowDown", () => e.setPlayerVelocity(0, -2));
+e.bindControl("ArrowLeft", () => e.setPlayerVelocity(0, -2));
+e.bindControl("ArrowRight", () => e.setPlayerVelocity(0, 2));
 e.init();
