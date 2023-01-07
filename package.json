@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "NODE_ENV=development concurrently \"parcel ./engine/engine.html\" \"wait-on http://localhost:1234 && electron app.js\""
+    "build": "parcel build engine/engine.html",
+    "dev": "parcel engine/engine.html",
+    "tauri": "tauri"
   },
   "author": "",
   "license": "MIT",
@@ -16,11 +18,9 @@
     ]
   },
   "devDependencies": {
-    "electron": "^6.0.11"
+    "@tauri-apps/cli": "^1.2.2"
   },
   "dependencies": {
-    "concurrently": "^4.1.2",
-    "parcel-bundler": "^1.12.3",
-    "wait-on": "^3.3.0"
+    "parcel": "^2.8.2"
   }
 }
